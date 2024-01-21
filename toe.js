@@ -2,11 +2,14 @@ const board = document.getElementById('board');
 const status = document.getElementById('status');
 const winMessage = document.getElementById('winMessage');
 let currentPlayer = '❌';
-let gameBoard = ['', '', '', '', '', '', '', '', ''];
+let gameBoard = Array(9).fill('');
 let gameActive = true;
 
+// Function to display an alert when a player wins
 function showWinAlert(player) {
-    alert(`Player ${player} wins!`);
+    setTimeout(() => {
+        alert(`Player ${player} wins!`);
+    }, 100);
 }
 
 function createBoard() {
@@ -51,7 +54,8 @@ function checkWinner() {
             gameActive = false;
             status.textContent = `Player ${currentPlayer} wins!`;
             winMessage.textContent = `Player ${currentPlayer} wins!`;
-            
+
+            // Display the winning alert
             showWinAlert(currentPlayer);
         }
     }
@@ -60,17 +64,19 @@ function checkWinner() {
         gameActive = false;
         status.textContent = 'It\'s a draw!';
         winMessage.textContent = 'It\'s a draw!';
-        
+
         // Display the draw alert
-        alert('It\'s a draw!');
+        setTimeout(() => {
+            alert('It\'s a draw!');
+        }, 100);
     }
 }
 
 function resetGame() {
-    gameBoard = ['', '', '', '', '', '', '', '', ''];
+    gameBoard = Array(9).fill('');
     gameActive = true;
-    currentPlayer = 'X';
-    status.textContent = 'Player X\'s turn';
+    currentPlayer = '❌';
+    status.textContent = 'Player ❌\'s turn';
     winMessage.textContent = '';
     document.querySelectorAll('.cell').forEach(cell => cell.textContent = '');
 }
