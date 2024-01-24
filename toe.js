@@ -1,16 +1,14 @@
 const board = document.getElementById('board');
 const status = document.getElementById('status');
 const winMessage = document.getElementById('winMessage');
+const playerXScoreElement = document.getElementById('playerXScore');
+const playerOScoreElement = document.getElementById('playerOScore');
+const scoresElement = document.getElementById('scores');
 let currentPlayer = '❌';
 let gameBoard = Array(9).fill('');
 let gameActive = true;
-
-// Function to display an alert when a player wins
-function showWinAlert(player) {
-    setTimeout(() => {
-        alert(`Player ${player} wins!`);
-    }, 100);
-}
+let playerXScore = 0;
+let playerOScore = 0;
 
 function createBoard() {
     for (let i = 0; i < 9; i++) {
@@ -55,7 +53,6 @@ function checkWinner() {
             status.textContent = `Player ${currentPlayer} wins!`;
             winMessage.textContent = `Player ${currentPlayer} wins!`;
 
-            // Display the winning alert
             showWinAlert(currentPlayer);
         }
     }
@@ -65,7 +62,6 @@ function checkWinner() {
         status.textContent = 'It\'s a draw!';
         winMessage.textContent = 'It\'s a draw!';
 
-        // Display the draw alert
         setTimeout(() => {
             alert('It\'s a draw!');
         }, 100);
@@ -81,5 +77,47 @@ function resetGame() {
     document.querySelectorAll('.cell').forEach(cell => cell.textContent = '');
 }
 
+function updateScores() {
+    playerXScoreElement.textContent = `Player ❌: ${playerXScore}`;
+    playerOScoreElement.textContent = `Player 🅾️: ${playerOScore}`;
+}
+
+function showWinAlert(player) {
+    setTimeout(() => {
+        alert(`Player ${player} wins!`);
+        if (player === '❌') {
+            playerXScore++;
+        } else {
+            playerOScore++;
+        }
+        updateScores();
+    }, 100);
+}
+
+function ChangeColor() {
+    var change = document.getElementById("meBaby");
+
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    function getRandomGradient() {
+        return 'linear-gradient(' + (Math.random() * 360) + 'deg, ' + getRandomColor() + ' 0%, ' + getRandomColor() + ' 100%)';
+    }
+
+    function changeColor() {
+        change.style.background = getRandomGradient();
+    }
+
+    changeColor();
+    setInterval(changeColor, 1000);
+}
+
 createBoard();
 updateStatus();
+updateScores();
