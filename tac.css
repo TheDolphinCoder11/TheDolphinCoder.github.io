@@ -8,6 +8,10 @@ body {
     color: white;
 }
 
+button {
+    cursor: pointer;
+}
+
 .game-container {
     text-align: center;
     margin-top: 20px;
